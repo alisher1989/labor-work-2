@@ -6,7 +6,7 @@
     <h1 class="mt-3">Comments</h1>
     <div class="row">
         {% for comment in comment %}
-            {% include 'partial/article_form.html' with comment=comment %}
+            {% include 'partial/comment.html' with comment=comment %}
         {% endfor %}
     </div>
 {% endblock %}

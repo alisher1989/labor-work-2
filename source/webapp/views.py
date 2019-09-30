@@ -145,7 +145,7 @@ class CommentUpdateView(View):
             comment.text = form.cleaned_data['text']
             comment.article = form.cleaned_data['article']
             comment.save()
-            return redirect('article_view', pk=comment.pk)
+            return redirect('article_view', pk=comment.article.pk)
         else:
             return render(request, 'comments/update.html', context={'form': form, 'comment': comment})
 
