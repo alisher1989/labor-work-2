@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Add comment{% endblock %}
+
+{% block content %}
+    <h1>Add comment</h1>
+    <form method="POST" action="{% url 'comment_add' %}">
+        {% include 'partial/article_form.html' with button_text="Create" %}
+    </form>
+{% endblock %}

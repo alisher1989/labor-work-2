@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block menu %}
+    <li><a href="{% url 'comment_add' %}">Add comment</a></li>
+{% endblock %}
+{% block content %}
+    <h1 class="mt-3">Comments</h1>
+    <div class="row">
+        {% for comment in comment %}
+            {% include 'partial/article_form.html' with comment=comment %}
+        {% endfor %}
+    </div>
+{% endblock %}

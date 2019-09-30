@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'article_update' article.pk %}">Edit</a></li>
+    <li><a href="{% url 'article_delete' article.pk %}">Delete</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ article.title }}</h1>
+    <p>Created by {{ article.author }} ({{ article.category|default_if_none:'Без категории' }})
+            at {{ article.created_at|date:'d.m.Y H:i:s' }}</p>
+    <div class="pre">{{ article.text }}</div>
+
+    {% for comment in article.comments.all %}
+        {% include 'partial/comment.html' with comment=comment %}
+    {% endfor %}
+
+    <h1>Add comment</h1>
+    <form method="POST" action="{% url 'comment_article' article.pk %}">
+        {% include 'partial/article_form.html' with button_text="Create" %}
+    </form>
+
+{% endblock %}

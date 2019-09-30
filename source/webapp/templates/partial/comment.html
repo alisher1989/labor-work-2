@@ -1,0 +1,11 @@
+<div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-3">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-text card-link">
+                {{ comment }}
+            </h2>
+            <a href="{% url 'comment_update' comment.pk %}"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'comment_delete' comment.pk %}"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
+</div>

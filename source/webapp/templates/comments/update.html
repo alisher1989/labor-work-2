@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Update comment{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url 'comment_view' %}">View</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>Update comment</h1>
+    <form method="POST" action="{% url 'comment_update' comment.pk %}">
+        {% include 'partial/comment.html' with button_text="Update" %}
+    </form>
+{% endblock %}
