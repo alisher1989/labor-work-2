@@ -1,0 +1,184 @@
+[
+{
+  "model": "webapp.article",
+  "pk": 2,
+  "fields": {
+    "title": "Computer",
+    "text": "Lenovo",
+    "author": "George Washington",
+    "created_at": "2019-09-29T07:20:10.795Z",
+    "updated_at": "2019-09-29T07:20:10.795Z",
+    "category": 3
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 3,
+  "fields": {
+    "title": "Football",
+    "text": "Early computers were only conceived as calculating devices. Since ancient times, simple manual devices like the abacus aided people in doing calculations. Early in the Industrial Revolution.",
+    "author": "Unai Emery",
+    "created_at": "2019-09-29T08:23:01.080Z",
+    "updated_at": "2019-09-30T06:43:59.740Z",
+    "category": 3
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 4,
+  "fields": {
+    "title": "Arsenal",
+    "text": "A \"complete\" computer including the hardware, the operating system (main software), and peripheral equipment required and used for \"full\" operation can be referred to as a computer system.",
+    "author": "Arsen Wenger",
+    "created_at": "2019-09-29T08:45:47.994Z",
+    "updated_at": "2019-09-30T06:42:22.998Z",
+    "category": 4
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 5,
+  "fields": {
+    "title": "Food",
+    "text": "Food is any substance[1] consumed to provide nutritional support for an organism. It is usually of plant or animal origin, and contains essential nutrients, such as carbohydrates, fats, proteins, vitamins, or minerals.",
+    "author": "Somebody",
+    "created_at": "2019-09-30T06:46:02.186Z",
+    "updated_at": "2019-09-30T06:46:02.186Z",
+    "category": 1
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 5,
+  "fields": {
+    "article": 2,
+    "text": "More sophisticated electrical machines did specialized analog calculations in the early 20th century. The first digital electronic calculating machines were developed during World War II.",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-09-29T08:24:33.805Z",
+    "updated_at": "2019-09-30T06:44:33.552Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 6,
+  "fields": {
+    "article": 2,
+    "text": "A computer is a machine that can be instructed to carry out sequences of arithmetic or logical operations automatically via computer programming.",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-09-29T08:24:47.064Z",
+    "updated_at": "2019-09-30T06:37:40.285Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 10,
+  "fields": {
+    "article": 4,
+    "text": "Emery out, Allegri is the best replacement",
+    "author": "Unai Emery",
+    "created_at": "2019-09-29T11:18:50.489Z",
+    "updated_at": "2019-09-29T11:18:50.489Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 12,
+  "fields": {
+    "article": 4,
+    "text": "Modern computers have the ability to follow generalized sets of operations, called programs. These programs enable computers to perform an extremely wide range of tasks.",
+    "author": "Arsen Wenger",
+    "created_at": "2019-09-30T06:02:13.969Z",
+    "updated_at": "2019-09-30T06:41:55.273Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 13,
+  "fields": {
+    "article": 4,
+    "text": "This term may as well be used for a group of computers that are connected and work together, in particular a computer network or computer cluster.",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-09-30T06:02:30.334Z",
+    "updated_at": "2019-09-30T06:42:45.973Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 14,
+  "fields": {
+    "article": 2,
+    "text": "Computers are used as control systems for a wide variety of industrial and consumer devices. This includes simple special purpose devices like microwave ovens and remote controls, factory devices such as industrial robots and computer-aided design.",
+    "author": "Attractor",
+    "created_at": "2019-09-30T06:43:20.694Z",
+    "updated_at": "2019-09-30T06:43:20.694Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 15,
+  "fields": {
+    "article": 5,
+    "text": "The substance is ingested by an organism and assimilated by the organism's cells to provide energy, maintain life, or stimulate growth.\r\nHistorically, humans secured food through two methods: hunting and gathering and agriculture.",
+    "author": "Chempan",
+    "created_at": "2019-09-30T06:46:40.834Z",
+    "updated_at": "2019-09-30T06:46:40.834Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 16,
+  "fields": {
+    "article": 5,
+    "text": "Today, the majority of the food energy required by the ever increasing population of the world is supplied by the food industry.",
+    "author": "Oldman",
+    "created_at": "2019-09-30T06:46:57.792Z",
+    "updated_at": "2019-09-30T06:46:57.792Z"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 1,
+  "fields": {
+    "name": "Food"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 2,
+  "fields": {
+    "name": "Cats"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 3,
+  "fields": {
+    "name": "IT"
+  }
+},
+{
+  "model": "webapp.category",
+  "pk": 4,
+  "fields": {
+    "name": "House"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$ynxlOaNNYYhT$OyV0VUWtmuaAOwypbyS8Q9RI34gXvh4qnTFcazj2q3Q=",
+    "last_login": "2019-09-29T07:52:03.862Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-09-26T09:13:40.198Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
