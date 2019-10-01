@@ -4,6 +4,7 @@
             <p class="card-text card-link">
                 {{ comment.text }}
             </p>
+            <a href="{% url 'article_view' comment.article.pk %}">To related article</a>
             <a href="{% url 'comment_update' comment.pk %}"><i class="fas fa-edit"></i></a>
             <a href="{% url 'comment_delete' comment.pk %}"><i class="fas fa-trash"></i></a>
         </div>
