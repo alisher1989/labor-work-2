@@ -94,6 +94,7 @@ class CommentsView(TemplateView):
 
 
 
+
 class CommentCreateView(View):
     def get(self, request, *args, **kwargs):
         form = CommentForm()
