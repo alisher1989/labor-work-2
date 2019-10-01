@@ -3,16 +3,16 @@ from webapp.forms import CommentForm, CommentArticleForm
 from webapp.models import Comment
 from django.views import View
 from django.views.generic import TemplateView
+from  .base_views import ListView
 
-class CommentsView(TemplateView):
+class CommentsView(ListView):
     template_name = 'comments/comments.html'
+    model = Comment
+    context_key = 'comment'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['comment'] = Comment.objects.all().order_by('-created_at')
-        print(Comment.objects.all().order_by('-created_at'))
-        return context
 
+    def get_objects(self):
+        return Comment.objects.order_by('-created_at')
 
 class CommentCreateView(View):
     def get(self, request, *args, **kwargs):
