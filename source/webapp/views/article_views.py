@@ -1,34 +1,55 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from webapp.forms import ArticleForm, CommentArticleForm
-from webapp.models import Article
+from webapp.models import Article, Comment
 from django.views import View
-from django.views.generic import TemplateView
-from .base_views import ListView
+from django.views.generic import TemplateView, ListView, DetailView
+from django.core.paginator import Paginator
+
 
 
 class IndexView(ListView):
     template_name = 'article/index.html'
     model = Article
-    context_key = 'articles'
-
-    def get_objects(self):
-        return super().get_objects().order_by('-created_at')
-
-
-    # def get_objects(self):
-    #     return Article.objects.order_by('-created_at')
+    context_object_name = 'articles'
+    ordering = ['-created_at']
+    paginate_by = 3
+    paginate_orphans = 1
 
 
-class ArticleView(TemplateView):
+
+
+    # def get_queryset(self):
+    #     return super().get_queryset().order_by('-created_at')
+
+
+class ArticleView(DetailView):
     template_name = 'article/article.html'
+    pk_url_kwarg = 'article_pk'
+    model = Article
 
-    def get_context_data(self, **kwargs):
-        pk = kwargs.get('pk')
-        form = CommentArticleForm()
-        context = super().get_context_data(**kwargs)
-        context['article'] = get_object_or_404(Article, pk=pk)
-        context['form'] = form
-        return context
+    class ArticleView(TemplateView):
+        template_name = 'article/article.html'
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            pk = kwargs.get('pk')
+            article = get_object_or_404(Article, pk=pk)
+            context['article'] = article
+            context['form'] = CommentArticleForm()
+            comments = article.comments.order_by('-created_at')
+            self.paginate_comments_to_context(comments, context)
+            return context
+
+        def paginate_comments_to_context(self, comments, context):
+            paginator = Paginator(comments, 3, 0)
+            page_number = self.request.GET.get('page', 1)
+            page = paginator.get_page(page_number)
+            context['paginator'] = paginator
+            context['page_obj'] = page
+            context['comments'] = page.object_list
+            context['is_paginated'] = page.has_other_pages()
+            return context
+
 
 
 class ArticleCreateView(View):

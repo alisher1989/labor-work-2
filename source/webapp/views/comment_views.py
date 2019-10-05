@@ -2,16 +2,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from webapp.forms import CommentForm, CommentArticleForm
 from webapp.models import Comment
 from django.views import View
-from django.views.generic import TemplateView
-from  .base_views import ListView
+from django.views.generic import TemplateView, ListView
+
 
 class CommentsView(ListView):
-    template_name = 'comments/comments.html'
+    template_name = 'comments/list.html'
     model = Comment
-    context_key = 'comment'
+    context_object_name = 'comment'
 
 
-    def get_objects(self):
+    def get_queryset(self):
         return Comment.objects.order_by('-created_at')
 
 class CommentCreateView(View):
@@ -83,4 +83,4 @@ class CommentDeleteView(View):
             comment.delete()
             return redirect('comment_view')
         except:
-            return render(request, 'comments/comments.html')
+            return render(request, 'comments/list.html')
