@@ -35,7 +35,7 @@ class ArticleView(DetailView):
         page = paginator.get_page(page_number)
         context['paginator'] = paginator
         context['page_obj'] = page
-        context['comments'] = page.object_list
+        context['comment'] = page.object_list
         context['is_paginated'] = page.has_other_pages()
 
 

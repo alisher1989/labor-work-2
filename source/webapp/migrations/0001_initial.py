@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('author', models.CharField(blank=True, default='Аноним', max_length=40, null=True, verbose_name='Автор')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Время создания')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Время изменения')),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='webapp.Article', verbose_name='Статья')),
+                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment', to='webapp.Article', verbose_name='Статья')),
             ],
         ),
         migrations.AddField(

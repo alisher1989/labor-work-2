@@ -15,7 +15,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    article = models.ForeignKey('webapp.Article', related_name='comments',
+    article = models.ForeignKey('webapp.Article', related_name='comment',
                                 on_delete=models.CASCADE, verbose_name='Статья')
     text = models.TextField(max_length=400, verbose_name='Комментарий')
     author = models.CharField(max_length=40, null=True, blank=True, default='Аноним', verbose_name='Автор')
