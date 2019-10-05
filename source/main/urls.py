@@ -16,20 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from webapp.views import IndexView, ArticleView, ArticleCreateView, ArticleUpdateView, \
-    ArticleDeleteView, CommentCreateView, CommentsView, CommentUpdateView, CommentDeleteView, NewCommentCreateView
+from webapp.views import IndexView, ArticleView, ArticleCreateView, \
+    ArticleUpdateView, ArticleDeleteView, CommentCreateView, CommentForArticleCreateView, \
+    CommentListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
-    path('article/<int:article_pk>/', ArticleView.as_view(), name='article_view'),
+    path('article/<int:pk>/', ArticleView.as_view(), name='article_view'),
     path('article/add/', ArticleCreateView.as_view(), name='article_add'),
-    path('article/<int:pk>/update/', ArticleUpdateView.as_view(), name='article_update'),
+    path('article/<int:pk>/edit/', ArticleUpdateView.as_view(), name='article_update'),
     path('article/<int:pk>/delete/', ArticleDeleteView.as_view(), name='article_delete'),
+    path('comments/', CommentListView.as_view(), name='comment_list'),
     path('comment/add/', CommentCreateView.as_view(), name='comment_add'),
-    path('comment/add/<int:pk>/', NewCommentCreateView.as_view(), name='comment_article'),
-    path('comment/', CommentsView.as_view(), name='comment_view'),
-    path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='comment_update'),
-    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
-
+    path('article/<int:pk>/add-comment/', CommentForArticleCreateView.as_view(), name='article_comment_create')
 ]

@@ -9,7 +9,7 @@ from webapp.models import Comment, Article
 class CommentListView(ListView):
     template_name = 'comment/list.html'
     model = Comment
-    context_object_name = 'comment'
+    context_object_name = 'comments'
     ordering = ['-created_at']
     paginate_by = 10
     paginate_orphans = 3
