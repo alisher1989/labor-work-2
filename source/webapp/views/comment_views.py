@@ -1,10 +1,10 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, \
+    UpdateView, DeleteView
 
 from webapp.forms import CommentForm, ArticleCommentForm
 from webapp.models import Comment, Article
-from webapp.views.base_views import UpdateView, DeleteView
 
 
 class CommentListView(ListView):
@@ -40,15 +40,17 @@ class CommentUpdateView(UpdateView):
     model = Comment
     template_name = 'comment/update.html'
     form_class = ArticleCommentForm
-    context_key = 'comment'
+    context_object_name = 'comment'
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('article_view', kwargs={'pk': self.object.article.pk})
 
 
 class CommentDeleteView(DeleteView):
     model = Comment
-    confirm_deletion = False
 
-    def get_redirect_url(self):
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+    def get_success_url(self):
         return reverse('article_view', kwargs={'pk': self.object.article.pk})

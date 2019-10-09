@@ -36,7 +36,6 @@ class CreateView(View):
     template_name = None
     model = None
     redirect_url = None
-    object = None
 
     def get(self, request, *args, **kwargs):
         form = self.form_class()
@@ -67,7 +66,6 @@ class UpdateView(View):
     model = None
     key_kwarg = 'pk'
     context_key = 'object'
-    object = None
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -80,6 +78,7 @@ class UpdateView(View):
         initial = {}
         for field in model_fields:
             initial[field] = getattr(self.object, field)
+        print(initial)
         return initial
 
     def post(self, request, *args, **kwargs):
@@ -121,7 +120,6 @@ class DeleteView(View):
     key_kwarg = 'pk'
     context_key = 'object'
     redirect_url = ''
-    object = None
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
