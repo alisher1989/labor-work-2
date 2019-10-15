@@ -48,6 +48,30 @@
   }
 },
 {
+  "model": "webapp.article",
+  "pk": 9,
+  "fields": {
+    "title": "dgyedyghe",
+    "text": "wretyeryeryery",
+    "author": "Unknownreyeyery",
+    "created_at": "2019-10-05T07:14:57.882Z",
+    "updated_at": "2019-10-05T07:14:57.882Z",
+    "category": 1
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 10,
+  "fields": {
+    "title": "new2",
+    "text": "new text2",
+    "author": "Me2",
+    "created_at": "2019-10-08T13:44:46.296Z",
+    "updated_at": "2019-10-08T13:45:08.013Z",
+    "category": 1
+  }
+},
+{
   "model": "webapp.comment",
   "pk": 5,
   "fields": {
@@ -136,6 +160,127 @@
   }
 },
 {
+  "model": "webapp.comment",
+  "pk": 19,
+  "fields": {
+    "article": 5,
+    "text": "ererwe",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-10-05T07:14:14.333Z",
+    "updated_at": "2019-10-05T07:14:14.333Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 20,
+  "fields": {
+    "article": 5,
+    "text": "erwrwerr",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-10-05T07:14:21.698Z",
+    "updated_at": "2019-10-05T07:14:21.698Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 21,
+  "fields": {
+    "article": 5,
+    "text": "strrrrrrrtsgsgdfgdg\r\ndfasfasfasf",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043czxcZX",
+    "created_at": "2019-10-05T07:14:37.817Z",
+    "updated_at": "2019-10-05T07:14:37.817Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 23,
+  "fields": {
+    "article": 9,
+    "text": "eryreyeryeryeryyery",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-10-05T07:15:07.165Z",
+    "updated_at": "2019-10-05T07:15:07.165Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 24,
+  "fields": {
+    "article": 9,
+    "text": "reyeyeryeryeryeryery",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-10-05T07:15:12.223Z",
+    "updated_at": "2019-10-05T07:15:12.223Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 25,
+  "fields": {
+    "article": 2,
+    "text": "sgfsdgsdg",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-10-05T07:16:52.387Z",
+    "updated_at": "2019-10-05T07:16:52.387Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 26,
+  "fields": {
+    "article": 9,
+    "text": "sdfsdgsdgsdg",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-10-05T07:28:25.634Z",
+    "updated_at": "2019-10-05T07:28:25.634Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 27,
+  "fields": {
+    "article": 9,
+    "text": "dsgdsgdsgsdgsdgsdgsdgsdgsgsd",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-10-05T07:28:37.181Z",
+    "updated_at": "2019-10-05T07:28:37.181Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 28,
+  "fields": {
+    "article": 9,
+    "text": "dfgdsfgdsfgsdgsg",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-10-05T07:29:37.537Z",
+    "updated_at": "2019-10-05T07:29:37.537Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 29,
+  "fields": {
+    "article": 9,
+    "text": "gsdgddsgdgsd",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-10-05T07:33:03.921Z",
+    "updated_at": "2019-10-05T07:33:03.921Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 30,
+  "fields": {
+    "article": 9,
+    "text": "ggggggggggggggggg",
+    "author": "\u0410\u043d\u043e\u043d\u0438\u043c",
+    "created_at": "2019-10-05T07:33:27.056Z",
+    "updated_at": "2019-10-05T07:33:27.056Z"
+  }
+},
+{
   "model": "webapp.category",
   "pk": 1,
   "fields": {
@@ -168,7 +313,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$150000$ynxlOaNNYYhT$OyV0VUWtmuaAOwypbyS8Q9RI34gXvh4qnTFcazj2q3Q=",
-    "last_login": "2019-09-29T07:52:03.862Z",
+    "last_login": "2019-10-05T07:17:14.188Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
