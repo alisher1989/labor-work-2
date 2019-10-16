@@ -1,6 +1,6 @@
 from django import forms
 
-from webapp.models import Article, Comment
+from webapp.models import Article, Comment, Tag
 
 
 class ArticleForm(forms.ModelForm):
@@ -23,3 +23,9 @@ class ArticleCommentForm(forms.ModelForm):
 
 class SimpleSearchForm(forms.Form):
     search = forms.CharField(max_length=100, required=False, label='Search')
+
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ['name']

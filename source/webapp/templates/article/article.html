@@ -24,6 +24,7 @@
                 <p>{{ comment.author }} commented at {{ comment.created_at|date:'d.m.Y H:i:s' }}</p>
                 <div class="pre">{{ comment.text }}</div>
             </div>
+
         {% empty %}
             <p>No comments yet.</p>
         {% endfor %}
@@ -33,5 +34,8 @@
     {% endif %}
     <form action="{% url 'article_comment_create' article.pk %}" method="POST" id="add_comment">
         {% include 'partial/form.html' with button_text='Add' %}
+    </form>
+    <form action="" method="POST" id="add_tag">
+        {% include 'partial/tag_form.html' with button_text='Add' %}
     </form>
 {% endblock %}
