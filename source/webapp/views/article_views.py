@@ -1,6 +1,5 @@
 from django.db.models import Q
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect
 
 from django.urls import reverse, reverse_lazy
 from django.utils.http import urlencode
@@ -11,7 +10,6 @@ from webapp.forms import ArticleForm, ArticleCommentForm, SimpleSearchForm
 from webapp.models import Article, Tag
 from django.core.paginator import Paginator
 
-# if 'book' in ['tags', 'name', 'book']
 
 class IndexView(ListView):
     template_name = 'article/index.html'
@@ -73,14 +71,6 @@ class ArticleView(DetailView):
         context['page_obj'] = page
         context['comments'] = page.object_list
         context['is_paginated'] = page.has_other_pages()
-
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     query = self.object.tags.filter(name__iexact=self.object.tags.name)
-    #     return queryset
-    #
-    # def get_success_url(self):
-    #     return reverse('index')
 
 
 class ArticleCreateView(CreateView):
