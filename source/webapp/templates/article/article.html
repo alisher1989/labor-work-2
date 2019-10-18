@@ -12,9 +12,6 @@
     <h1>{{ article.title }}</h1>
     <p>Created by {{ article.author }} ({{ article.category|default_if_none:'Без категории' }})
         at {{ article.created_at|date:'d.m.Y H:i:s' }}</p>
-    Tags: {% for tag in article.tags.all %}
-            <a href="?tag={{ tag.name }}"><b>{{ tag.name }}</b></a>
-            {% endfor %}
     <hr>
     <div class="pre">{{ article.text }}</div>
     <hr/>

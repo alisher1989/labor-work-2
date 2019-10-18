@@ -11,6 +11,7 @@ from webapp.forms import ArticleForm, ArticleCommentForm, SimpleSearchForm
 from webapp.models import Article, Tag
 from django.core.paginator import Paginator
 
+# if 'book' in ['tags', 'name', 'book']
 
 class IndexView(ListView):
     template_name = 'article/index.html'
@@ -26,9 +27,10 @@ class IndexView(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        print(self.request.GET)
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['form'] = self.form
+        if 'tag' in self.request.GET:
+            context[self.context_object_name] = Article.objects.filter(tags__name=self.request.GET.get('tag'))
         if self.search_value:
             context['query'] = urlencode({'search': self.search_value})
         return context
