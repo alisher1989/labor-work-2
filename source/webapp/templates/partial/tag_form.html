@@ -1,14 +1,8 @@
-{% load  widget_tweaks %}
-{% csrf_token %}
-
-{% for error in form.not_field_errors %}
-<p class="form-error">{{ error }}</p>
-{% endfor %}
-
-<p><label for="{{ form.status.id_for_label }}">Status *</label></p>
-<p>{{ form.status|add_class:"form-control" }}</p>
-{% for error in form.status.errors %}
-    <p class="form-error">{{ errors }}</p>
-{% endfor %}
-
-<p class="text-center"><input type="submit" value="Confirm" class="btn btn-primary"></p>
+<form class="text-center" action="" method="GET">
+    <label for="{{ form.tags.id_for_label }}">{{ form.tags.label }}:</label>
+    {{ form.search }}
+    <input type="submit" value="Add tag">
+    {% for error in form.tags.errors %}
+        <p class="form-error">{{ error }}</p>
+    {% endfor %}
+</form>

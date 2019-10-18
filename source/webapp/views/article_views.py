@@ -1,4 +1,6 @@
 from django.db.models import Q
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 
 from django.urls import reverse, reverse_lazy
 from django.utils.http import urlencode
@@ -6,7 +8,7 @@ from django.views.generic import ListView, DetailView, CreateView,\
     UpdateView, DeleteView
 
 from webapp.forms import ArticleForm, ArticleCommentForm, SimpleSearchForm
-from webapp.models import Article
+from webapp.models import Article, Tag
 from django.core.paginator import Paginator
 
 
@@ -24,6 +26,7 @@ class IndexView(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        print(self.request.GET)
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['form'] = self.form
         if self.search_value:
@@ -33,7 +36,8 @@ class IndexView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         if self.search_value:
-            query = Q(title__icontains=self.search_value) | Q(author__icontains=self.search_value)
+            query = Q(title__icontains=self.search_value) | Q(author__icontains=self.search_value)\
+                    | Q(tags__name__iexact=self.search_value)
             queryset = queryset.filter(query)
         return queryset
 
@@ -53,6 +57,7 @@ class ArticleView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         article = self.object
+        print(self.request.GET)
         context['form'] = ArticleCommentForm()
         comments = article.comments.order_by('-created_at')
         self.paginate_comments_to_context(comments, context)
@@ -67,14 +72,35 @@ class ArticleView(DetailView):
         context['comments'] = page.object_list
         context['is_paginated'] = page.has_other_pages()
 
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     query = self.object.tags.filter(name__iexact=self.object.tags.name)
+    #     return queryset
+    #
+    # def get_success_url(self):
+    #     return reverse('index')
+
 
 class ArticleCreateView(CreateView):
     form_class = ArticleForm
     model = Article
     template_name = 'article/create.html'
+    key_kwarg = 'pk'
+    redirect_url = 'article_view'
 
     def get_success_url(self):
-        return reverse('article_view', kwargs={'pk': self.object.pk})
+        return reverse('article_view', kwargs={self.key_kwarg: self.object.pk})
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.add_tags()
+        return redirect(self.get_success_url())
+
+    def add_tags(self):
+        tags = self.request.POST.get('tags').split(',')
+        for tag in tags:
+            tag, _ = Tag.objects.get_or_create(name=tag)
+            self.object.tags.add(tag)
 
 
 class ArticleUpdateView(UpdateView):
@@ -85,6 +111,33 @@ class ArticleUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('article_view', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.get_form()
+        self.tag_clear()
+        return redirect(self.get_success_url())
+
+    def add_tags(self):
+        tags = self.request.POST.get('tags').split(',')
+        for tag in tags:
+            tag, _ = Tag.objects.get_or_create(name=tag)
+            self.object.tags.add(tag)
+
+    def tag_clear(self):
+        clear = self.object.tags.clear()
+        self.add_tags()
+        return clear
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=None)
+        tags = list(self.object.tags.all().values('name'))
+        print()
+        tags_str = ''
+        for tag in tags:
+            tags_str += tag['name'] + ','
+        form.fields['tags'].initial = tags_str
+        return form
 
 
 class ArticleDeleteView(DeleteView):

@@ -9,7 +9,6 @@ class Tag(models.Model):
         return self.name
 
 
-
 class Article(models.Model):
     title = models.CharField(max_length=200, null=False, blank=False, verbose_name='Заголовок')
     text = models.TextField(max_length=3000, null=False, blank=False, verbose_name='Текст')

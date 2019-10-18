@@ -54,3 +54,6 @@ class CommentDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('article_view', kwargs={'pk': self.object.article.pk})
+
+
+

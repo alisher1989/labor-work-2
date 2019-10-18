@@ -12,6 +12,10 @@
     <h1>{{ article.title }}</h1>
     <p>Created by {{ article.author }} ({{ article.category|default_if_none:'Без категории' }})
         at {{ article.created_at|date:'d.m.Y H:i:s' }}</p>
+    Tags: {% for tag in article.tags.all %}
+            <a href="?tag={{ tag.name }}"><b>{{ tag.name }}</b></a>
+            {% endfor %}
+    <hr>
     <div class="pre">{{ article.text }}</div>
     <hr/>
     <h3>Comments:</h3>
@@ -24,7 +28,6 @@
                 <p>{{ comment.author }} commented at {{ comment.created_at|date:'d.m.Y H:i:s' }}</p>
                 <div class="pre">{{ comment.text }}</div>
             </div>
-
         {% empty %}
             <p>No comments yet.</p>
         {% endfor %}
@@ -34,8 +37,5 @@
     {% endif %}
     <form action="{% url 'article_comment_create' article.pk %}" method="POST" id="add_comment">
         {% include 'partial/form.html' with button_text='Add' %}
-    </form>
-    <form action="" method="POST" id="add_tag">
-        {% include 'partial/tag_form.html' with button_text='Add' %}
     </form>
 {% endblock %}
