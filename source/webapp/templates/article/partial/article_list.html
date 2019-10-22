@@ -1,0 +1,16 @@
+<hr/>
+{% for article in articles %}
+    <h2><b>Articles name: </b>{{ article.title }}</h2>
+    <p><b>Authors name: </b> {{ article.author }}
+        ({{ article.category|default_if_none:'Без категории' }})
+        at {{ article.created_at|date:'d.m.Y H:i:s' }}</p>
+            Tags: {% for tag in article.tags.all %}
+            <a href="?tag={{ tag.name }}"><b>{{ tag.name }}</b></a>
+            {% endfor %}
+    <p>
+        <a href="{% url 'article_view' article.pk %}">More...</a>
+        <a href="{% url 'article_update' article.pk %}">Edit</a>
+        <a href="{% url "article_delete" article.pk %}">Delete</a>
+    </p>
+    <hr/>
+{% endfor %}

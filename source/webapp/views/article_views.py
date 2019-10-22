@@ -3,12 +3,13 @@ from django.shortcuts import redirect
 
 from django.urls import reverse, reverse_lazy
 from django.utils.http import urlencode
-from django.views.generic import ListView, DetailView, CreateView,\
-    UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, \
+    UpdateView, DeleteView, FormView
 
-from webapp.forms import ArticleForm, ArticleCommentForm, SimpleSearchForm
+from webapp.forms import ArticleForm, ArticleCommentForm, SimpleSearchForm, FullSearchForm
 from webapp.models import Article, Tag
 from django.core.paginator import Paginator
+
 
 
 class IndexView(ListView):
@@ -57,7 +58,6 @@ class ArticleView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         article = self.object
-        print(self.request.GET)
         context['form'] = ArticleCommentForm()
         comments = article.comments.order_by('-created_at')
         self.paginate_comments_to_context(comments, context)
@@ -124,7 +124,6 @@ class ArticleUpdateView(UpdateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class=None)
         tags = list(self.object.tags.all().values('name'))
-        print()
         tags_str = ''
         for tag in tags:
             tags_str += tag['name'] + ','
@@ -137,3 +136,49 @@ class ArticleDeleteView(DeleteView):
     template_name = 'article/delete.html'
     context_object_name = 'article'
     success_url = reverse_lazy('index')
+
+
+class ArticleSearchView(FormView):
+    template_name = 'article/search.html'
+    form_class = FullSearchForm
+
+    def form_valid(self, form):
+        text = form.cleaned_data.get('text')
+        author = form.cleaned_data.get('author')
+        a = Q(Article.objects.filter(author__exact=author))
+        print(a)
+        query = self.get_text_search_query(form, text)
+        query_author = self.get_author_search_query(form, author)
+        context = self.get_context_data(form=form)
+        context['articles'] = Article.objects.filter(query).distinct()
+        context['articles'] = Article.objects.filter(query_author).distinct()
+        return self.render_to_response(context=context)
+
+
+    def get_text_search_query(self, form, text):
+        query = Q()
+        if text:
+            in_title = form.cleaned_data.get('in_title')
+            if in_title:
+                query = query | Q(title__icontains=text)
+            in_text = form.cleaned_data.get('in_text')
+            if in_text:
+                query = query | Q(text__icontains=text)
+            in_tags = form.cleaned_data.get('in_tags')
+            if in_tags:
+                query = query | Q(tags__name__iexact=text)
+            in_comment_text = form.cleaned_data.get('in_comment_text')
+            if in_comment_text:
+                query = query | Q(comments__text__icontains=text)
+        return query
+
+    def get_author_search_query(self, form, author):
+        query_author = Q()
+        if author:
+            in_articles = form.cleaned_data.get('in_articles')
+            if in_articles:
+                query_author = query_author | Q(Article.objects.filter(author__exact=author))
+            in_comments = form.cleaned_data.get('in_comments')
+            if in_comments:
+                query_author = query_author | Q(comments__author__icontains=author)
+        return query_author
