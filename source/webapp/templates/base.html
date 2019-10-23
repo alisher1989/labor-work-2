@@ -16,6 +16,12 @@
             <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'comment_list' %}">Comments</a></li>
             <li><a href="{% url 'article_search' %}">Search</a></li>
+            {% if request.user.is_authenticated %}
+                <li>Hello , {{ user }}!</li>
+                <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
+            {% else %}
+                <li><a href="{% url 'accounts:login' %}">Log In</a></li>
+            {% endif %}
             {% block menu %}{% endblock %}
         </ul>
     </div>

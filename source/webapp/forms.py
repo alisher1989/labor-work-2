@@ -76,21 +76,18 @@ class FullSearchForm(forms.Form):
         in_articles = self.cleaned_data.get('in_articles')
         in_comments = self.cleaned_data.get('in_comments')
 
-        try:
-            if text:
-                if not (in_title or in_text or in_tags or in_comment_text):
-                    raise ValidationError(
-                        'One of the checkboxes: In Title, In Text, In Tags, In Comment text should be checked.',
-                        code='no_text_search_destination'
-                                          )
-            return self.cleaned_data
-        except:
-            if author:
-                if not (in_articles or in_comments):
-                    raise ValidationError(
-                        'One of the checkboxes: In Articles, In Comments text should be checked.',
-                        code='no_author_search_destination'
-                    )
-            return self.cleaned_data
+        if text:
+            if not (in_title or in_text or in_tags or in_comment_text):
+                raise ValidationError(
+                    'One of the checkboxes: In Title, In Text, In Tags, In Comment text should be checked.',
+                    code='no_text_search_destination'
+                                      )
+        elif author:
+            if not (in_articles or in_comments):
+                raise ValidationError(
+                    'One of the checkboxes: In Articles, In Comments text should be checked.',
+                    code='no_author_search_destination'
+                )
+        return self.cleaned_data
 
 

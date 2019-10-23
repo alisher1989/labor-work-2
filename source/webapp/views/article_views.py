@@ -144,14 +144,14 @@ class ArticleSearchView(FormView):
 
     def form_valid(self, form):
         text = form.cleaned_data.get('text')
+        print(text)
         author = form.cleaned_data.get('author')
         a = Q(Article.objects.filter(author__exact=author))
         print(a)
         query = self.get_text_search_query(form, text)
         query_author = self.get_author_search_query(form, author)
         context = self.get_context_data(form=form)
-        context['articles'] = Article.objects.filter(query).distinct()
-        context['articles'] = Article.objects.filter(query_author).distinct()
+        context['articles'] = Article.objects.filter(query, query_author).distinct()
         return self.render_to_response(context=context)
 
 
