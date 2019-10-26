@@ -9,6 +9,7 @@ class SignUpForm(forms.Form):
                                widget=forms.PasswordInput)
     password_confirm = forms.CharField(max_length=100, required=True,
                                        label="Password confirm", widget=forms.PasswordInput)
+    email = forms.EmailField(required=True, label='Email')
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -17,6 +18,14 @@ class SignUpForm(forms.Form):
             raise ValidationError('Username is already taken.', code='username_taken')
         except User.DoesNotExist:
             return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            User.objects.get(email=email)
+            raise ValidationError('Email is already taken.', code='email_taken')
+        except User.DoesNotExist:
+            return email
 
     def clean(self):
         super().clean()

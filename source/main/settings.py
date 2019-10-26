@@ -122,5 +122,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
 LOGIN_URL = 'accounts:login'
+
+HOST_NAME = 'localhost:8000'
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '66b3ae28052efd'
+EMAIL_HOST_PASSWORD = '216c0007e257fc'
+EMAIL_PORT = '2525'
