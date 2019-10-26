@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Вход</h1>
-    <form action="{% url 'accounts:login' %}" method="post" class="text-center">
+    <form action="" method="post" class="text-center">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
         {% if has_error %}

@@ -8,21 +8,17 @@ from accounts.forms import SignUpForm
 
 def login_view(request):
     context = {}
-    if request.method == 'GET':
-        next_url = request.GET.get('next', '')
-        context['next'] = next_url
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        next_url = request.POST.get('next', '')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            next_url = request.GET.get('next', '')
             if next_url:
                 return redirect(next_url)
             return redirect('index')
         else:
-            context['next'] = next_url
             context['has_error'] = True
     return render(request, 'login.html', context=context)
 
