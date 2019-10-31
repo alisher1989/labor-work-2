@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="post" action="{% url "article_search" %}">
+    <form method="post" action="{% url "webapp:article_search" %}">
         {% csrf_token %}
         {% for error in form.non_field_errors %}
             <p class="form-error">{{ error }}</p>

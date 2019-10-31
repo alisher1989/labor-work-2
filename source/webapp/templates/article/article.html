@@ -3,8 +3,8 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'article_update' article.pk %}">Edit</a></li>
-    <li><a href="{% url 'article_delete' article.pk %}">Delete</a></li>
+    <li><a href="{% url 'webapp:article_update' article.pk %}">Edit</a></li>
+    <li><a href="{% url 'webapp:article_delete' article.pk %}">Delete</a></li>
     <li><a href="#add_comment">Add Comment</a></li>
 {% endblock %}
 
@@ -32,7 +32,7 @@
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
-    <form action="{% url 'article_comment_create' article.pk %}" method="POST" id="add_comment">
+    <form action="{% url 'webapp:article_comment_create' article.pk %}" method="POST" id="add_comment">
         {% include 'partial/form.html' with button_text='Add' %}
     </form>
 {% endblock %}

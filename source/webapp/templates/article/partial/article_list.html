@@ -8,9 +8,9 @@
             <a href="?tag={{ tag.name }}"><b>{{ tag.name }}</b></a>
             {% endfor %}
     <p>
-        <a href="{% url 'article_view' article.pk %}">More...</a>
-        <a href="{% url 'article_update' article.pk %}">Edit</a>
-        <a href="{% url "article_delete" article.pk %}">Delete</a>
+        <a href="{% url 'webapp:article_view' article.pk %}">More...</a>
+        <a href="{% url 'webapp:article_update' article.pk %}">Edit</a>
+        <a href="{% url "webapp:article_delete" article.pk %}">Delete</a>
     </p>
     <hr/>
 {% endfor %}

@@ -32,7 +32,7 @@ h1 {
     line-height: 1;
     padding: 0;
     margin: 0;
-    display: inline-block;
+    display: block;
     color: #fffee8;
 }
 
@@ -40,7 +40,7 @@ h1 {
     display: inline-block;
 }
 
-.menu a {
+.menu a, .menu-text {
     display: inline-block;
     text-decoration: none;
     color: inherit;
@@ -50,6 +50,10 @@ h1 {
 .menu a:hover {
     color: #ffc122;
     text-decoration: underline;
+}
+
+.menu-right {
+    float: right;
 }
 
 .pre {
@@ -126,4 +130,12 @@ h1 {
 
 .comment p {
     margin: 0 0 5px;
+}
+
+.comment-links {
+    text-align: right;
+}
+
+.comment .comment-links {
+    margin: 5px 0 0;
 }

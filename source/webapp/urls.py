@@ -18,4 +18,4 @@ urlpatterns = [
     path('article/<int:pk>/add-comment/', CommentForArticleCreateView.as_view(), name='article_comment_create'),
 ]
 
-# app_name = 'webapp'
+app_name = 'webapp'

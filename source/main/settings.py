@@ -122,7 +122,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = 'accounts:login'
+LOGIN_URL = 'registration:login'
+LOGIN_REDIRECT_URL = 'webapp:index'
+LOGOUT_REDIRECT_URL = 'webapp:index'
 
 HOST_NAME = 'localhost:8000'
 

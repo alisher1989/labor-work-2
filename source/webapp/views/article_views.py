@@ -90,7 +90,7 @@ class ArticleCreateView(CreateView):
 
 
     def get_success_url(self):
-        return reverse('article_view', kwargs={self.key_kwarg: self.object.pk})
+        return reverse('webapp:article_view', kwargs={self.key_kwarg: self.object.pk})
 
     def form_valid(self, form):
         self.object = form.save()
@@ -111,7 +111,7 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     context_object_name = 'article'
 
     def get_success_url(self):
-        return reverse('article_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:article_view', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
         self.object = form.save()
@@ -136,7 +136,7 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
         tags_str = ''
         for tag in tags:
             tags_str += tag['name'] + ','
-        form.fields['tags'].initial = tags_str
+        form.fields['tags'].initial = tags_str[:-1]
         return form
 
 
@@ -144,7 +144,7 @@ class ArticleDeleteView(DeleteView):
     model = Article
     template_name = 'article/delete.html'
     context_object_name = 'article'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('webapp:index')
 
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)

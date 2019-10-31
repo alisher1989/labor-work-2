@@ -1,11 +1,14 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.urls import reverse
 from main.settings import HOST_NAME
+from django.views.generic import DetailView, UpdateView
 
-from accounts.forms import SignUpForm
+from accounts.forms import SignUpForm, UserChangeForm, UserChangePasswordForm
 from accounts.models import Token
 
 
@@ -20,16 +23,16 @@ def login_view(request):
             next_url = request.GET.get('next', '')
             if next_url:
                 return redirect(next_url)
-            return redirect('index')
+            return redirect('webapp:index')
         else:
             context['has_error'] = True
-    return render(request, 'login.html', context=context)
+    return render(request, 'registration/login.html', context=context)
 
 
-@login_required
 def logout_view(request):
     logout(request)
-    return redirect('index')
+    return redirect('webapp:index')
+
 
 
 def register_view(request):
@@ -58,7 +61,7 @@ def register_view(request):
             except ConnectionRefusedError:
                 print('Could not send email. Server error.')
 
-            return redirect('index')
+            return redirect('webapp:index')
         else:
             return render(request, 'register.html', context={'form': form})
 
@@ -69,4 +72,41 @@ def user_activate_view(request, token):
     user.is_active = True
     user.save()
     login(request, user)
-    return redirect('index')
+    return redirect('webapp:index')
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'user_detail.html'
+    context_object_name = 'user_obj'
+
+
+class UserChangeView(UserPassesTestMixin, UpdateView):
+    model = User
+    template_name = 'user_update.html'
+    context_object_name = 'user_obj'
+    form_class = UserChangeForm
+
+    def test_func(self):
+        return self.get_object() == self.request.user
+
+    def get_success_url(self):
+        return reverse('accounts:user_detail', kwargs={'pk': self.object.pk})
+
+
+class UserChangePasswordView(UserPassesTestMixin, UpdateView):
+    model = User
+    template_name = 'user_change_password.html'
+    form_class = UserChangePasswordForm
+    context_object_name = 'user_obj'
+
+    def test_func(self):
+        return self.get_object() == self.request.user
+
+    # def form_valid(self, form):
+    #     user = form.save()
+    #     login(self.request, user)
+    #     return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('accounts:login')

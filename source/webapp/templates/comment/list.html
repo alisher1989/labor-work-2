@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block menu %}
-    <li><a href="{% url 'comment_add' %}">Add Comment</a></li>
+    <li><a href="{% url 'webapp:comment_add' %}">Add Comment</a></li>
 {% endblock %}
 
 {% block content %}
@@ -11,12 +11,12 @@
     {% endif %}
     {% for comment in comments %}
         <div class="comment">
-            <p>To article: <a href="{% url 'article_view' comment.article.pk %}">{{ comment.article.title }}</a></p>
+            <p>To article: <a href="{% url 'webapp:article_view' comment.article.pk %}">{{ comment.article.title }}</a></p>
             <p>{{ comment.author }} commented at {{ comment.created_at|date:'d.m.Y H:i:s' }}</p>
             <div class="pre">{{ comment.text }}</div>
             <p class="comment-links">
-                <a href="{% url 'comment_update' comment.pk %}">Edit</a>
-                <a href="{% url 'comment_delete' comment.pk %}">Delete</a>
+                <a href="{% url 'webapp:comment_update' comment.pk %}">Edit</a>
+                <a href="{% url 'webapp:comment_delete' comment.pk %}">Delete</a>
             </p>
         </div>
     {% empty %}
